@@ -1,9 +1,10 @@
 import { useEffect } from "react";
-import { useGifSState } from "../context/gif-context";
+import { useGifState } from "../context/gif-context";
 import Gif from "../components/Gif";
+import FilterGif from "../components/FilterGif";
 
 const Home = () => {
-  const { gf, gifs, filter, setGifs } = useGifSState();
+  const { gf, gifs, filter, setGifs } = useGifState();
 
   const fetchTrendingGif = async () => {
     const { data } = await gf.trending({
@@ -25,7 +26,7 @@ const Home = () => {
         alt="earth banner"
         className="mt-2 rounded w-full"
       />
-
+      <FilterGif />
       <div className="columns-2 md:columns-3 lg:columns-4 xl:columns-5 gap-2">
         {gifs.map((gif) => (
           <Gif gif={gif} key={gif.id} />

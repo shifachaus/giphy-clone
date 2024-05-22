@@ -11,13 +11,15 @@ const GifProvider = ({ children }) => {
   const gf = new GiphyFetch(import.meta.env.VITE_GIPHY_KEY);
 
   return (
-    <GifContext.Provider value={{ gf, gifs, filter, favorites, setGifs }}>
+    <GifContext.Provider
+      value={{ gf, gifs, filter, favorites, setGifs, setFilter }}
+    >
       {children}
     </GifContext.Provider>
   );
 };
 
-export const useGifSState = () => {
+export const useGifState = () => {
   return useContext(GifContext);
 };
 
