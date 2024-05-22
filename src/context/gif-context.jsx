@@ -10,9 +10,19 @@ const GifProvider = ({ children }) => {
 
   const gf = new GiphyFetch(import.meta.env.VITE_GIPHY_KEY);
 
+  const addToFavorites = () => {};
+
   return (
     <GifContext.Provider
-      value={{ gf, gifs, filter, favorites, setGifs, setFilter }}
+      value={{
+        gf,
+        gifs,
+        filter,
+        favorites,
+        setGifs,
+        setFilter,
+        addToFavorites,
+      }}
     >
       {children}
     </GifContext.Provider>

@@ -40,7 +40,7 @@ const Category = () => {
         </h2>
 
         {searchResults.length > 0 && (
-          <div className="columns-2 md:columns-3 lg:columns-4 gap-2">
+          <div className="columns-2 md:columns-3 lg:columns-4 xl:columns-5  gap-2">
             {searchResults.slice(1).map((gif) => (
               <Gif gif={gif} key={gif.id} />
             ))}
