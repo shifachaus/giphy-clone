@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { useParams } from "react-router-dom";
+import { useLocation, useParams } from "react-router-dom";
 import { HiOutlineExternalLink } from "react-icons/hi";
 import {
   HiMiniChevronDown,
@@ -17,11 +17,14 @@ const contentType = ["gifs", "stickers", "texts"];
 
 const SignleGif = () => {
   const { type, slug } = useParams();
+  const location = useLocation();
   const { gf, addToFavorites, favorites } = useGifState();
 
   const [gif, setGif] = useState({});
   const [relatedGifs, setRelatedGifs] = useState([]);
   const [readMore, setReadMore] = useState(false);
+
+  const [copied, setCopied] = useState(false);
 
   useEffect(() => {
     if (!contentType.includes(type)) {
@@ -42,7 +45,17 @@ const SignleGif = () => {
   }, []);
 
   const shareGif = () => {
-    //TODO
+    // Get the current URL
+    const currentUrl = "https://giphy.com" + location.pathname;
+
+    // Copy the URL to the clipboard
+    navigator.clipboard.writeText(currentUrl).then(() => {
+      setCopied(true);
+
+      setTimeout(() => {
+        setCopied(false);
+      }, 2000);
+    });
   };
 
   const EmbedGif = () => {
@@ -145,7 +158,13 @@ const SignleGif = () => {
             <button className="flex gap-6 items-center font-bold text-lg">
               <FaPaperPlane size={25} onClick={shareGif} />
               Share
+              {copied && (
+                <span className="text-green-300 font-bold text-sm">
+                  Copied!
+                </span>
+              )}
             </button>
+
             <button
               className="flex gap-5 items-center font-bold text-lg"
               onClick={EmbedGif}
