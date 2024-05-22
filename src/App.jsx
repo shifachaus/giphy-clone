@@ -5,6 +5,7 @@ import Favorites from "./pages/Favorites";
 import Category from "./pages/Category";
 import Search from "./pages/Search";
 import SignleGif from "./pages/SignleGif";
+import GifProvider from "./context/gif-context";
 
 const router = createBrowserRouter([
   {
@@ -35,7 +36,11 @@ const router = createBrowserRouter([
 ]);
 
 function App() {
-  return <RouterProvider router={router} />;
+  return (
+    <GifProvider>
+      <RouterProvider router={router} />;
+    </GifProvider>
+  );
 }
 
 export default App;
