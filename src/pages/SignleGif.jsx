@@ -17,9 +17,9 @@ const contentType = ["gifs", "stickers", "texts"];
 
 const SignleGif = () => {
   const { type, slug } = useParams();
-  const { gf } = useGifState();
+  const { gf, addToFavorites, favorites } = useGifState();
 
-  const [gif, setGif, addToFavorites, favorites] = useState({});
+  const [gif, setGif] = useState({});
   const [relatedGifs, setRelatedGifs] = useState([]);
   const [readMore, setReadMore] = useState(false);
 
