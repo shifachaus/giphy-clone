@@ -12,6 +12,7 @@ import { IoCodeSharp } from "react-icons/io5";
 import { useGifState } from "../context/gif-context";
 import Gif from "../components/Gif";
 import FollowOn from "../components/FollowOn";
+import EmbedModal from "../components/EmbedModel";
 
 const contentType = ["gifs", "stickers", "texts"];
 
@@ -23,8 +24,8 @@ const SignleGif = () => {
   const [gif, setGif] = useState({});
   const [relatedGifs, setRelatedGifs] = useState([]);
   const [readMore, setReadMore] = useState(false);
-
   const [copied, setCopied] = useState(false);
+  const [showEmbedModal, setShowEmbedModal] = useState(false);
 
   useEffect(() => {
     if (!contentType.includes(type)) {
@@ -45,13 +46,9 @@ const SignleGif = () => {
   }, []);
 
   const shareGif = () => {
-    // Get the current URL
     const currentUrl = "https://giphy.com" + location.pathname;
-
-    // Copy the URL to the clipboard
     navigator.clipboard.writeText(currentUrl).then(() => {
       setCopied(true);
-
       setTimeout(() => {
         setCopied(false);
       }, 2000);
@@ -59,11 +56,14 @@ const SignleGif = () => {
   };
 
   const EmbedGif = () => {
-    //TODO
+    setShowEmbedModal(!showEmbedModal);
   };
 
   return (
     <div className="grid grid-cols-4 my-10 gap-4">
+      {showEmbedModal && (
+        <EmbedModal gif={gif} setShowEmbedModal={setShowEmbedModal} />
+      )}
       <div className="hidden sm:block">
         {gif?.user && (
           <>
@@ -123,7 +123,6 @@ const SignleGif = () => {
             <div className="faded-text truncate mb-2">{gif.title}</div>
             <Gif gif={gif} hover={false} />
 
-            {/* -- Mobile UI -- */}
             <div className="flex sm:hidden gap-1">
               <img
                 src={gif?.user?.avatar_url}
@@ -139,7 +138,6 @@ const SignleGif = () => {
                 <FaPaperPlane size={25} />
               </button>
             </div>
-            {/* -- Mobile UI -- */}
           </div>
 
           <div className="hidden sm:flex flex-col gap-5 mt-6">
